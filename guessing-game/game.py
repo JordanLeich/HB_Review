@@ -1,35 +1,66 @@
 """A number-guessing game."""
+# Updated by Jordan Leich on 5/20/2020, email me at jordanleich@gmail.com if you want to make any python programs
+# together please!
 
-from random import randrange
+# Imports
+import random
+import time
 
-# Put your code here
-print("Hi how are you? ")
-users_name = input("What's your name? ")
-guess_number = int(input("Hi " + users_name + " please guess a number between 1-100: "))
-right_number = 25
+# Intro code
+mood = input("Hello, how are you? ")
+print()
+time.sleep(1)
+name = input("What's your name? ")
+print()
+time.sleep(1)
 
-num_guesses = 0 
-while guess_number != right_number: 
-    try:
-        guess = int(guess_number)
-    except ValueError:
-        print(f'"{guess_number}" is not a valid number, try again.')
-        continue
 
-    if guess_number < 0 or guess_number > 100:
-        print("Please guess a number between 1 and 100")
-    
-    guess_number = int(input("Hi " + users_name + " please guess a number: "))
+# Core code for the guessing game
+def game():
+    right_number = random.randint(1, 100)
+    num_guesses = 0
+    guess_number = int(input("Hi " + name + ", please guess a number between 1-100: "))
 
-    if guess_number < right_number:
+    if guess_number == right_number:
+        print()
+        print('Congrats ' + name + ', you have guessed the correct number in ' + str(num_guesses) + " tries!")
+        print()
+        time.sleep(2)
+        quit()
+
+    elif guess_number < right_number:
+        print()
         print("Please guess a higher number.")
-        
+        num_guesses += 1
+        print()
+        game()
 
-    elif guess_number >  right_number:
+    elif guess_number > right_number:
+        print()
         print("Please guess a lower number.")
+        num_guesses += 1
+        print()
+        game()
+
+    elif guess_number < 0 or guess_number > 100:
+        print()
+        print("Only guess a number between 1 and 100 please.")
+        print()
+        time.sleep(2)
+        game()
+
+    elif guess_number == right_number:
+        print()
+        print('Congrats ' + name + ', you have guessed the correct number in ' + str(num_guesses) + " tries!")
+        print()
+        time.sleep(2)
+        quit()
 
     else:
-        print("You guessed the right number in " + str(num_guesses) + " tries!")
-        break
-    
-    num_guesses += 1
+        print("Error!")
+        print()
+        time.sleep(5)
+
+
+# Starts the guessing game code above
+game()
